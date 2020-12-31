@@ -13,8 +13,6 @@ function Coeffs = getRbfCoefficients (samplePoints, sampleValues, rbfFunc, beta)
     end
   end
   
-  tmp = min(r(:))
-  
   Rbfs = rbf(r, rbfFunc, beta);
   
   Poly = [ones(K, 1), samplePoints];
