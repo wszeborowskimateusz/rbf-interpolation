@@ -33,7 +33,7 @@ title("Random points");
 xlabel("X");
 ylabel("Y");
 
-
+r0 = 1.5;
 smallestError = inf;
 maxErrors = [];
 meanErrors = [];
@@ -50,13 +50,13 @@ for rbfFuncIndex = 1:length(rbfFuncs)
 
     # Calculate rbf coefficients
     tic;
-    Coeffs = getRbfCoefficients(Xrands, Zrand, rbfFunc, beta);
+    Coeffs = getRbfCoefficientsLocal(Xrands, Zrand, rbfFunc, beta, r0);
     tEquation = toc;
     timingsEquation = [timingsEquation; tEquation];
     
     # Evaluate RBF for not known points
     tic;
-    Zinter = evaluateRbf(Coeffs, Xrands, XSpaces, rbfFunc, beta);
+    Zinter = evaluateRbfLocal(Coeffs, Xrands, XSpaces, rbfFunc, beta, r0);
     tEvaluate = toc;
     timingsEvaluate = [timingsEvaluate; tEvaluate];
     Zinter = reshape(Zinter, [size(X, 1), size(X, 2)]);

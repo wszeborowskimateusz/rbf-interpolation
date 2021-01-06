@@ -12,6 +12,7 @@ xstep = .2;
 
 K = 100;
 beta = 0.75;
+r0 = 1.5;
 rbfFunc = 'gaussian';
 
 func = @(x, y) sin(pi * x) .* sin((pi/2)*y) .* exp(-(x.^2 + y.^2) ./ 6);
@@ -31,14 +32,14 @@ Zrand = func(Xrand, Yrand);
 
 # Calculate rbf coefficients
 tic;
-Coeffs = getRbfCoefficients(Xrands, Zrand, rbfFunc, beta);
+Coeffs = getRbfCoefficientsLocal(Xrands, Zrand, rbfFunc, beta, r0);
 "Solving the equation"
 toc;
 
 
 # Evaluate RBF for not known points
 tic;
-Zinter = evaluateRbf(Coeffs, Xrands, XSpaces, rbfFunc, beta);
+Zinter = evaluateRbfLocal(Coeffs, Xrands, XSpaces, rbfFunc, beta, r0);
 "Evaluating for the rest of points"
 toc;
 Zinter = reshape(Zinter, [size(X, 1), size(X, 2)]);
