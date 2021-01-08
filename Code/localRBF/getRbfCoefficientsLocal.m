@@ -1,4 +1,4 @@
-function Coeffs = getRbfCoefficientsLocal (samplePoints, sampleValues, rbfFunc, beta, r0)
+function Coeffs = getRbfCoefficientsLocal (samplePoints, sampleValues, r0)
   ndims = size(samplePoints, 2);
   # +1 for constant factor
   ncols = ndims + 1;
@@ -13,11 +13,12 @@ function Coeffs = getRbfCoefficientsLocal (samplePoints, sampleValues, rbfFunc, 
     end
   end
   
-  Rbfs = rbfLocal(r, rbfFunc, beta, r0);
+  Rbfs = rbfLocal(r, r0);
   
   Poly = [ones(K, 1), samplePoints];
 
   Matrix = sparse([Rbfs, Poly; transpose(Poly), zeros(ncols)]);
+
   y = [sampleValues; zeros(ncols, 1)];
   
   Coeffs = Matrix \ y;

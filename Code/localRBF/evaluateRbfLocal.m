@@ -1,4 +1,4 @@
-function [Z] = evaluateRbfLocal (Coeffs, Xknowns, X, rbfFunc, beta, r0)
+function [Z] = evaluateRbfLocal (Coeffs, Xknowns, X, r0)
   K = length(Xknowns); 
   N = size(X, 1);
  
@@ -11,7 +11,7 @@ function [Z] = evaluateRbfLocal (Coeffs, Xknowns, X, rbfFunc, beta, r0)
   end
   
   P = [ones(N, 1), X];
-  Rbfs = rbfLocal(r, rbfFunc, beta, r0);
+  Rbfs = rbfLocal(r, r0);
   
   Z = [Rbfs, P]*Coeffs;
 endfunction
